@@ -33,20 +33,20 @@ body {
 /* 상단 행 */
 .row--top {
   display: flex;
-  gap: 24px;
+  justify-content: space-between;
 }
 
 /* 하단 행 */
 .row--bottom {
   display: flex;
-  gap: 24px;
+  justify-content: space-between;
 }
 
 /* 오른쪽 컬럼 */
 .right-col {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  justify-content: space-between;
 }
 
 /* ── 각 모듈 고정 사이즈 ── */
