@@ -39,6 +39,7 @@ function App() {
         {/* 상단 행 */}
         <div className="row--top">
           <div className="steering-wrap">
+            {/* 여기서 바퀴 각도 데이터 넣기 */ }
             <SteeringCounter wheelAngle={30} />
           </div>
           <SensorData />
