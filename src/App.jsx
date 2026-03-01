@@ -35,8 +35,8 @@ function SessionControl() {
 }
 
 function App() {
-  // 여기 숫자만 바꾸면 됨 (1~16) / 나중에 소켓 데이터로 교체
-  const coachingId = 13;
+  // 코칭 id 데이터 불러오기
+  const coachingId = 8;
   const coaching = getCoaching(coachingId);
 
   return (
@@ -47,7 +47,7 @@ function App() {
         {/* 상단 행 */}
         <div className="row--top">
           <div className="steering-wrap">
-            <SteeringCounter wheelAngle={30} />
+            <SteeringCounter wheelAngle={-15} />
           </div>
           <SensorData />
         </div>
