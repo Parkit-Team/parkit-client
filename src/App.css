@@ -1,42 +1,140 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* ───────────────────────────────────────
+   폰트
+─────────────────────────────────────── */
+@font-face {
+  font-family: 'Aleo';
+  src: url('./assets/Aleo-Bold.ttf') format('truetype');
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+@font-face {
+  font-family: 'Alata';
+  src: url('./assets/Alata-Regular.ttf') format('truetype');
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+body {
+  background-color: var(--color-background);
+  font-family: 'Alata', sans-serif;
 }
 
-.card {
-  padding: 2em;
+.app {
+  width: 1440px;
+  height: 960px;
+  min-width: 1440px;
+  min-height: 960px;
+  max-width: 1440px;
+  max-height: 960px;
+  background-color: var(--color-background);
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid #FFFFFF;
+  font-family: 'Alata', sans-serif;
 }
 
-.read-the-docs {
-  color: #888;
+.main {
+  flex: 1;
+  padding: 0px 40px 40px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* 상단 행 */
+.row--top {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* 하단 행 */
+.row--bottom {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* 오른쪽 컬럼 */
+.right-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* ── 각 모듈 고정 사이즈 ── */
+
+.steering-wrap {
+  width: 402px;
+  height: 267px;
+  flex-shrink: 0;
+}
+
+.sensordata-wrap {
+  width: 888px;
+  height: 267px;
+  flex-shrink: 0;
+}
+
+.coaching-wrap {
+  width: 828px;
+  height: 480px;
+  flex-shrink: 0;
+}
+
+.score-wrap {
+  width: 494px;
+  height: 243px;
+  flex-shrink: 0;
+}
+
+.session-wrap {
+  width: 494px;
+  flex-shrink: 0;
+}
+
+/* 플레이스홀더 */
+.placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  padding: 20px 24px;
+  color: var(--color-line);
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+/* 세션 버튼 */
+.session-buttons {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+}
+
+.session-btn {
+  width: 100%;
+  height: 88px;
+  border-radius: 20px;
+  border: 1px solid var(--color-line);
+  background: transparent;
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.session-btn--active {
+  background-color: #1a3a28;
+  border-color: var(--color-green);
+}
+
+.session-btn:hover {
+  border-color: var(--color-green);
 }
