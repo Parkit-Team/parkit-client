@@ -2,6 +2,10 @@ import './App.css';
 import Header from './components/Header';
 import SteeringCounter from './components/SteeringCounter';
 import CoachingPoint from './components/CoachingPoint';
+import coachingTips from './coachingTips.json';
+
+// id로 코칭 데이터 조회
+const getCoaching = (id) => coachingTips.find(tip => tip.id === id) || null;
 
 function SensorData() {
   return (
@@ -31,6 +35,10 @@ function SessionControl() {
 }
 
 function App() {
+  // 여기 숫자만 바꾸면 됨 (1~16) / 나중에 소켓 데이터로 교체
+  const coachingId = 13;
+  const coaching = getCoaching(coachingId);
+
   return (
     <div className="app">
       <Header isRunning={true} sessionTime={81} />
@@ -39,7 +47,6 @@ function App() {
         {/* 상단 행 */}
         <div className="row--top">
           <div className="steering-wrap">
-            {/* 여기서 바퀴 각도 데이터 넣기 */ }
             <SteeringCounter wheelAngle={30} />
           </div>
           <SensorData />
@@ -49,8 +56,9 @@ function App() {
         <div className="row--bottom">
           <div className="coaching-wrap">
             <CoachingPoint
-              message="핸들을 좌측으로 더 꺾으세요."
-              subMessage="현재 각도 부족"
+              message={coaching?.message}
+              subMessage={coaching?.subMessage}
+              level={coaching?.level}
               isRunning={true}
             />
           </div>
