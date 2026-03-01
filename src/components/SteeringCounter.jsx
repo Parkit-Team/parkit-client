@@ -34,14 +34,18 @@ const SteeringCounter = ({ wheelAngle = 0 }) => {
       <svg viewBox="0 0 400 210" width="100%" height="100%"
         style={{ flex: 1, overflow: 'hidden' }}>
 
-        {/* 바늘 */}
+        {/* 바늘 - CSS transform으로 애니메이션 */}
         <line
           x1={cx} y1={cy}
-          x2={nx} y2={ny}
+          x2={cx} y2={cy - (r - 8)}
           stroke="#FFFFFF"
           strokeWidth="5"
           strokeLinecap="round"
-          style={{ transition: 'all 0.15s ease' }}
+          style={{
+            transformOrigin: `${cx}px ${cy}px`,
+            transform: `rotate(${needleDeg}deg)`,
+            transition: 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+          }}
         />
 
         {/* 반원 호 */}
@@ -64,8 +68,6 @@ const SteeringCounter = ({ wheelAngle = 0 }) => {
             </text>
           );
         })}
-
-
 
         {/* 바늘 원점을 배경색으로 덮어서 숨김 */}
         <circle cx={cx} cy={cy} r="65" fill={colors.box} />
