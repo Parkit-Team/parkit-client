@@ -1,9 +1,37 @@
 /* ───────────────────────────────────────
+   폰트
+─────────────────────────────────────── */
+@font-face {
+  font-family: 'Aleo';
+  src: url('./assets/Aleo-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Alata';
+  src: url('./assets/Alata-Regular.ttf') format('truetype');
+}
+
+
+/* ───────────────────────────────────────
+   색상 변수 (colors.js 와 동일하게 유지)
+─────────────────────────────────────── */
+:root {
+  --color-background: #0A0A1A;
+  --color-line:       #2A2A4A;
+  --color-box:        #0D0D1F;
+  --color-green:      #2ED573;
+  --color-orange:     #FFAA00;
+  --color-red:        #FA3A3A;
+  --color-grey:       #D9D9D9;
+}
+
+
+/* ───────────────────────────────────────
    공통 카드 박스
 ─────────────────────────────────────── */
 .card {
-  background-color: #0D0D1F;
-  border: 1px solid #2A2A4A;
+  background-color: var(--color-box);
+  border: 1px solid var(--color-line);
   border-radius: 20px;
   display: flex;
   flex-direction: column;
@@ -11,7 +39,7 @@
 }
 
 .card--active {
-  border-color: #2ED573;
+  border-color: var(--color-green);
   box-shadow: 0 0 12px rgba(46, 213, 115, 0.15);
 }
 
@@ -24,17 +52,18 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px 36px;
-  border-bottom: 1px solid #2A2A4A;
+  height: 110px;
 }
 
 .header__logo {
-  font-size: 28px;
+  font-family: 'Aleo', serif;
+  font-size: 40px;
   font-weight: 800;
   letter-spacing: 2px;
 }
 
 .header__logo--park {
-  color: #2ED573;
+  color: var(--color-green);
 }
 
 .header__logo--it {
@@ -50,11 +79,11 @@
 }
 
 .header__session-label {
-  color: #2ED573;
+  color: var(--color-green);
 }
 
 .header__timer {
-  color: #2ED573;
+  color: var(--color-green);
   font-variant-numeric: tabular-nums;
 }
 
@@ -68,7 +97,7 @@
 }
 
 .header__live-dot--active {
-  background-color: #2ED573;
+  background-color: var(--color-green);
   animation: pulse 1.5s infinite;
 }
 
@@ -78,7 +107,7 @@
 }
 
 .header__live-text--active {
-  color: #D9D9D9;
+  color: var(--color-grey);
 }
 
 @keyframes pulse {
@@ -98,7 +127,7 @@
 }
 
 .steering__title {
-  color: #D9D9D9;
+  color: var(--color-grey);
   font-size: 14px;
   align-self: flex-start;
   margin: 0 0 8px 0;
@@ -114,7 +143,7 @@
 }
 
 .steering__label {
-  color: #D9D9D9;
+  color: var(--color-grey);
   font-size: 12px;
   margin: 4px 0 0 0;
   letter-spacing: 1px;
@@ -135,7 +164,7 @@
 }
 
 .coaching__title {
-  color: #2ED573;
+  color: var(--color-green);
   font-size: 14px;
   margin: 0 0 20px 0;
   letter-spacing: 0.5px;
@@ -159,7 +188,7 @@
 }
 
 .coaching__sub {
-  color: #2ED573;
+  color: var(--color-green);
   font-size: 16px;
   margin: 0;
 }
