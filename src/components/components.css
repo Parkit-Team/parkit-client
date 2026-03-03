@@ -1,0 +1,370 @@
+/* ───────────────────────────────────────
+   폰트
+─────────────────────────────────────── */
+@font-face {
+  font-family: 'Aleo';
+  src: url('./assets/Aleo-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Alata';
+  src: url('./assets/Alata-Regular.ttf') format('truetype');
+}
+
+
+/* ───────────────────────────────────────
+   색상 변수 (colors.js 와 동일하게 유지)
+─────────────────────────────────────── */
+:root {
+  --color-background: #0A0A1A;
+  --color-line:       #2A2A4A;
+  --color-box:        #0D0D1F;
+  --color-green:      #2ED573;
+  --color-orange:     #FFAA00;
+  --color-red:        #FA3A3A;
+  --color-grey:       #D9D9D9;
+}
+
+
+/* ───────────────────────────────────────
+   공통 카드 박스
+─────────────────────────────────────── */
+.card {
+  background-color: var(--color-box);
+  border: 1px solid var(--color-line);
+  box-shadow: inset 0 0 0 3px var(--color-line);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  transition: border 0.3s, box-shadow 0.3s;
+}
+
+.card--active {
+  border-color: 1px solid var(--color-green);
+  box-shadow: inset 0 0 0 3px var(--color-green), 0 0 12px rgba(46, 213, 115, 0.15);
+}
+
+
+/* ───────────────────────────────────────
+   Header
+─────────────────────────────────────── */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 36px;
+  height: 110px;
+}
+
+.header__logo {
+  font-family: 'Aleo', serif;
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.header__logo--park {
+  color: var(--color-green);
+}
+
+.header__logo--it {
+  color: #FFFFFF;
+}
+
+.header__right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 20px;
+  letter-spacing: 1.5px;
+}
+
+.header__session-label {
+  color: var(--color-green);
+}
+
+.header__timer {
+  color: var(--color-green);
+  font-variant-numeric: tabular-nums;
+}
+
+.header__live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: #555;
+  transition: background-color 0.3s;
+}
+
+.header__live-dot--active {
+  background-color: var(--color-green);
+  animation: pulse 1.5s infinite;
+}
+
+.header__live-text {
+  color: #555;
+  transition: color 0.3s;
+}
+
+.header__live-text--active {
+  color: var(--color-grey);
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.2; }
+}
+
+
+/* ───────────────────────────────────────
+   SteeringCounter
+─────────────────────────────────────── */
+.steering {
+  padding: 20px 24px 12px;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.steering__title {
+  color: var(--color-grey);
+  font-size: 20px;
+  align-self: flex-start;
+  margin: 0 0 8px 0;
+  letter-spacing: 0.5px;
+}
+
+.steering__angle {
+  color: #FFFFFF;
+  font-size: 36px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  margin-top: -8px;
+}
+
+.steering__label {
+  color: var(--color-grey);
+  font-size: 12px;
+  margin: 4px 0 0 0;
+  letter-spacing: 1px;
+}
+
+.steering__needle {
+  transition: all 0.15s ease;
+}
+
+
+/* ───────────────────────────────────────
+   CoachingPoint
+─────────────────────────────────────── */
+.coaching {
+  padding: 24px 32px;
+  width: 100%;
+  height: 100%;
+}
+
+.coaching__title {
+  color: var(--color-green);
+  font-size: 20px;
+  margin: 0 0 20px 0;
+  letter-spacing: 0.5px;
+}
+
+.coaching__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+}
+
+.coaching__message {
+  color: #FFFFFF;
+  font-size: 55px;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.3;
+  word-break: keep-all;
+}
+
+.coaching__sub {
+  color: var(--color-green);
+  font-size: 25px;
+  margin: 0;
+}
+
+
+/* ───────────────────────────────────────
+   SensorData
+─────────────────────────────────────── */
+
+.sensordata {
+  padding: 24px 32px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.sensordata__title {
+  color: var(--color-grey);
+  font-size: 20px;
+  margin: 0 0 20px 0;
+  letter-spacing: 0.5px;
+}
+
+.sensordata__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+}
+
+.sensordata__row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.sensordata__label {
+  font-size: 14px;
+  color: var(--color-grey);
+  width: 35px;
+  flex-shrink: 0;
+}
+
+.sensordata__bar-bg {
+  flex: 1;
+  height: 6px;
+  background-color: #1A1B2E;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.sensordata__bar-fill {
+  height: 100%;
+  transition: width 0.4s ease, background-color 0.4s ease;
+}
+
+.sensordata__value {
+  font-size: 14px;
+  width: 35px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+
+/* ───────────────────────────────────────
+   ScoreBoard
+─────────────────────────────────────── */
+
+.score {
+  width: 100%;
+  height: 100%;
+  padding: 32px 40px; 
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.score__title {
+  color: var(--color-grey);
+  font-size: 20px;
+  margin: 0 0 20px 0;
+  letter-spacing: 0.5px;
+}
+
+.score__body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 0 20px; 
+}
+
+.score__left {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.score__number {
+  font-size: 72px;
+  font-weight: 800;
+  line-height: 1;
+  min-width: 100px; 
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.score__total {
+  font-size: 20px;
+  color: #444466;
+  flex-shrink: 0; 
+}
+
+.score__right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.score__status {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+
+/* ───────────────────────────────────────
+   SessionControl (components.css)
+─────────────────────────────────────── */
+
+.session-control {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 16px;
+}
+
+.session-btn-wrap.card {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.session-btn {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  color: #FFFFFF;
+  outline: none;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.session-btn:focus, .session-btn:active {
+  outline: none;
+  border: none;
+}
+
+.btn--active-green {
+  background-color: #1a3a28 !important;
+  border-color: var(--color-green) !important;
+  box-shadow: inset 0 0 0 3px var(--color-green), 0 0 12px rgba(46, 213, 115, 0.15) !important;
+}
+
+.btn--disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}

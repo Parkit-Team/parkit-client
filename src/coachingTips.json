@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "level": "위험",
+    "message": "후방 장애물이 매우 가깝습니다!",
+    "subMessage": "즉시 정지하세요"
+  },
+  {
+    "id": 2,
+    "level": "위험",
+    "message": "전방 충돌 위험!",
+    "subMessage": "브레이크를 밟으세요"
+  },
+  {
+    "id": 3,
+    "level": "위험",
+    "message": "우측 장애물과 거리 10cm 미만!",
+    "subMessage": "즉시 핸들을 좌측으로 꺾으세요"
+  },
+  {
+    "id": 4,
+    "level": "위험",
+    "message": "좌측 장애물과 거리 10cm 미만!",
+    "subMessage": "즉시 핸들을 우측으로 꺾으세요"
+  },
+  {
+    "id": 5,
+    "level": "위험",
+    "message": "핸들이 한계 각도를 초과했습니다!",
+    "subMessage": "핸들을 반대 방향으로 돌리세요"
+  },
+  {
+    "id": 6,
+    "level": "경고",
+    "message": "후방 거리가 가깝습니다.",
+    "subMessage": "속도를 줄이세요"
+  },
+  {
+    "id": 7,
+    "level": "경고",
+    "message": "핸들을 좌측으로 더 꺾으세요.",
+    "subMessage": "현재 각도 부족"
+  },
+  {
+    "id": 8,
+    "level": "경고",
+    "message": "핸들을 우측으로 더 꺾으세요.",
+    "subMessage": "현재 각도 부족"
+  },
+  {
+    "id": 9,
+    "level": "경고",
+    "message": "차량이 주차선에서 벗어나고 있습니다.",
+    "subMessage": "방향을 조정하세요"
+  },
+  {
+    "id": 10,
+    "level": "경고",
+    "message": "핸들을 천천히 풀어주세요.",
+    "subMessage": "조향 과다"
+  },
+  {
+    "id": 11,
+    "level": "경고",
+    "message": "전방 거리가 좁아지고 있습니다.",
+    "subMessage": "속도를 줄이세요"
+  },
+  {
+    "id": 12,
+    "level": "양호",
+    "message": "완벽한 주차 각도입니다.",
+    "subMessage": "현재 방향을 유지하세요"
+  },
+  {
+    "id": 13,
+    "level": "양호",
+    "message": "천천히 후진하세요.",
+    "subMessage": "주차 공간에 진입 중"
+  },
+  {
+    "id": 14,
+    "level": "양호",
+    "message": "핸들을 서서히 펴주세요.",
+    "subMessage": "차량 정렬 중"
+  },
+  {
+    "id": 15,
+    "level": "양호",
+    "message": "주차가 완료되었습니다!",
+    "subMessage": "수고하셨습니다"
+  },
+  {
+    "id": 16,
+    "level": "양호",
+    "message": "좌우 간격이 균형 잡혀 있습니다.",
+    "subMessage": "이대로 진행하세요"
+  }
+]
