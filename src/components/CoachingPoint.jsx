@@ -52,24 +52,24 @@ const CoachingPoint = ({
 
           {/* 위험일 때만 경고 버튼 표시 */}
           {isDanger && (
-            <div style={{
-              marginTop: 24,
-              padding: '18px 32px',
-              border: '2px solid #FA3A3A',
-              borderRadius: 16,
-              background: 'rgba(250, 58, 58, 0.1)',
-              textAlign: 'center',
+          <div style={{
+            marginTop: 24,
+            padding: '18px 32px',
+            border: '2px solid #FA3A3A',
+            borderRadius: 16,
+            background: 'rgba(250, 58, 58, 0.1)',
+            textAlign: 'center',
+          }}>
+            <span style={{
+              color: '#FA3A3A',
+              fontSize: 28,
+              fontWeight: 700,
+              fontFamily: 'Alata, sans-serif',
             }}>
-              <span style={{
-                color: '#FA3A3A',
-                fontSize: 28,
-                fontWeight: 700,
-                fontFamily: 'Alata, sans-serif',
-              }}>
-                전방 충돌 위험!
-              </span>
-            </div>
-          )}
+              {message}
+            </span>
+          </div>
+        )}
         </div>
 
         {/* ── 오른쪽: Real-Time Data ── */}
