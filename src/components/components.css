@@ -159,19 +159,37 @@
    CoachingPoint
 ─────────────────────────────────────── */
 .coaching {
-  padding: 24px 32px;
+  padding: 28px 36px;
   width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.cleant {
+  display: flex;
+  flex-direction: row;
   height: 100%;
 }
 
+/* ── 공통 타이틀 ── */
 .coaching__title {
   color: var(--color-green);
   font-size: 20px;
+  font-weight: 600;
   margin: 0 0 20px 0;
   letter-spacing: 0.5px;
 }
 
+/* ── 왼쪽 패널 ── */
 .coaching__body {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--color-line);
+  padding-right: 36px;
+}
+
+.coaching__content {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -181,17 +199,86 @@
 
 .coaching__message {
   color: #FFFFFF;
-  font-size: 55px;
+  font-size: 52px;
   font-weight: 700;
   margin: 0;
   line-height: 1.3;
   word-break: keep-all;
+  white-space: pre-line;
+  letter-spacing: 0.5px;
 }
 
 .coaching__sub {
   color: var(--color-green);
-  font-size: 25px;
+  font-size: 28px;
+  font-weight: 500;
   margin: 0;
+  line-height: 1.6;
+  letter-spacing: 0.5px;
+}
+
+.coaching__collision {
+  margin-top: auto;
+  padding: 20px 32px;
+  background: rgba(250, 58, 58, 0.15);
+  border: 2px solid var(--color-red);
+  border-radius: 14px;
+  color: var(--color-red);
+  font-size: 28px;
+  font-weight: 800;
+  text-align: center;
+  letter-spacing: 2px;
+  animation: collisionPulse 1s infinite;
+}
+
+@keyframes collisionPulse {
+  0%, 100% { opacity: 1; border-color: var(--color-red); }
+  50%       { opacity: 0.6; border-color: #ff8888; }
+}
+
+/* ── 오른쪽 패널 ── */
+.realData__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-left: 36px;
+}
+
+/* ── 수치 묶음 ── */
+.real__item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+.real__row {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+}
+
+.real__number {
+  font-size: 80px;
+  font-weight: 800;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.real__total {
+  font-size: 20px;
+  color: #8899aa;
+  margin-bottom: 12px;
+  flex-shrink: 0;
+  letter-spacing: 0.5px;
+}
+
+.real__label {
+  color: #8899aa;
+  font-size: 16px;
+  margin: 0;
+  letter-spacing: 0.5px;
 }
 
 
