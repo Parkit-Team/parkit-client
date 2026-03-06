@@ -19,8 +19,8 @@ function Sensor() {
     return () => client.deactivate();
   }, []);
 
-  const fields = [
-    { key: 'coachingId',    label: 'Coaching ID',     unit: '' },
+const fields = [
+    { key: 'step',          label: 'Step',            unit: '' },
     { key: 'steeringAngle', label: 'Steering Angle',  unit: '°' },
     { key: 'straight',      label: 'Straight',        unit: '' },
     { key: 'front',         label: '전방',             unit: 'cm' },
