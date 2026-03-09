@@ -1,13 +1,11 @@
 import { useEffect } from 'react';
 import './components.css';
+import steps from '../steps.json';
 
-const stepMessages = {
-  1: '핸들 각도를 0도로 유지한 뒤, 앞으로 10m 전진하세요',
-  2: '핸들 각도를 -360도로 돌린 뒤, 앞으로 5m 전진하세요',
-  3: '핸들 각도를 180도로 돌린 뒤, 뒤로 3m 후진하세요',
-  4: '핸들 각도를 360도로 돌린 뒤, 뒤로 3m 후진하며 핸들을 서서히 푸세요',
+const levelStyle = {
+  위험: { border: '#FA3A3A', glow: 'rgba(250, 58, 58, 0.15)' },
+  양호: { border: '#2ED573', glow: 'rgba(46, 213, 115, 0.15)' },
 };
-
 
 const CoachingPoint = ({
   message = '',
@@ -17,7 +15,8 @@ const CoachingPoint = ({
   distanceValue = 0,
   step = 1,
 }) => {
-  const isDanger = isRunning && level === '위험';
+  const style = isRunning ? (levelStyle[level] ?? levelStyle['양호']) : null;
+  const stepData = steps.find(s => s.step === step) || steps[0];
 
   useEffect(() => {
     if (!message || !isRunning) return;
@@ -30,9 +29,9 @@ const CoachingPoint = ({
   return (
     <div
       className="card coaching"
-      style={isDanger ? {
-        borderColor: '#FA3A3A',
-        boxShadow: 'inset 0 0 0 3px #FA3A3A, 0 0 12px rgba(250, 58, 58, 0.15)',
+      style={isRunning ? {
+        borderColor: style.border,
+        boxShadow: `inset 0 0 0 3px ${style.border}, 0 0 12px ${style.glow}`,
       } : {}}
     >
       <div className="cleant">
@@ -46,19 +45,20 @@ const CoachingPoint = ({
               [STEP {step}]
             </p>
             <p className="coaching__message" style={{ color: '#2ED573', fontSize: '32px' }}>
-              {stepMessages[step] || (isRunning ? '데이터 수신 중...' : '세션이\n종료되었습니다.')}
+              {stepData.message || (isRunning ? '데이터 수신 중...' : '세션이\n종료되었습니다.')}
             </p>
           </div>
 
-          {/* 위험일 때만 경고 버튼 표시 */}
-          {isDanger && (
+          {/* coaching__content 밖, coaching__body 안 */}
           <div style={{
-            marginTop: 24,
+            marginTop: 'auto',        /* 바닥으로 밀기 */
             padding: '18px 32px',
-            border: '2px solid #FA3A3A',
+            border: `2px solid ${isRunning && level === '위험' ? '#FA3A3A' : 'transparent'}`,
             borderRadius: 16,
-            background: 'rgba(250, 58, 58, 0.1)',
+            background: isRunning && level === '위험' ? 'rgba(250, 58, 58, 0.1)' : 'transparent',
             textAlign: 'center',
+            visibility: isRunning && level === '위험' ? 'visible' : 'hidden',
+            boxSizing: 'border-box',
           }}>
             <span style={{
               color: '#FA3A3A',
@@ -69,7 +69,6 @@ const CoachingPoint = ({
               {message}
             </span>
           </div>
-        )}
         </div>
 
         {/* ── 오른쪽: Real-Time Data ── */}
@@ -81,6 +80,7 @@ const CoachingPoint = ({
               <span className="real__number" style={{ color: isRunning ? '#FFAA00' : '#FFFFFF' }}>
                 {angleValue}°
               </span>
+              <span className="score__total">/ {stepData.targetAngle}°</span>
             </div>
             <p className="real__label">핸들 각도</p>
           </div>
@@ -90,6 +90,7 @@ const CoachingPoint = ({
               <span className="real__number" style={{ color: '#FFFFFF' }}>
                 {distanceValue}m
               </span>
+              <span className="score__total">/ {stepData.targetDistance}m</span>
             </div>
             <p className="real__label">전진량</p>
           </div>
