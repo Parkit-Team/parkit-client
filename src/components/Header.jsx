@@ -1,6 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import './components.css';
 
 const Header = ({ isRunning, sessionTime }) => {
+  const navigate = useNavigate();
+
   const formatTime = (seconds) => {
     const m = String(Math.floor(seconds / 60)).padStart(2, '0');
     const s = String(seconds % 60).padStart(2, '0');
@@ -9,7 +12,7 @@ const Header = ({ isRunning, sessionTime }) => {
 
   return (
     <header className="header">
-      <div className="header__logo">
+      <div className="header__logo" onClick={() => navigate("/sensor")}>
         <span className="header__logo--park">PARK</span>
         <span className="header__logo--it">IT</span>
       </div>
