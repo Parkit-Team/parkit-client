@@ -1,6 +1,16 @@
 pipeline {
     agent any
 
+    // 젠킨스 Tools 설정에서 만든 'default' 도커를 불러옵니다.
+    tools {
+        dockerTool 'default' 
+    }
+
+    environment {
+        DOCKER_USER = 'baeyuha' 
+        IMAGE_NAME = 'parkit-client'
+    }
+
     // 변수 설정: 내 도커 아이디를 여기에 적어주세요
     environment {
         DOCKER_USER = 'baeyuha' 
