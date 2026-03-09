@@ -1,15 +1,15 @@
 import './components.css';
 import colors from '../colors';
 
-const SteeringCounter = ({ wheelAngle = 0 }) => {
-  const MAX_WHEEL_ANGLE = 60;
+const SteeringCounter = ({ steeringAngle = 0 }) => {
   const MAX_ROTATIONS = 2;
 
-  const clamped = Math.max(-MAX_WHEEL_ANGLE, Math.min(MAX_WHEEL_ANGLE, wheelAngle));
+  const rotations = steeringAngle / 360;
+  const clampedRotations = Math.max(-MAX_ROTATIONS, Math.min(MAX_ROTATIONS, rotations));
 
-  const steeringRotation = clamped / 30;
+  const needleDeg = (clampedRotations / MAX_ROTATIONS) * 90;
 
-  const needleDeg = (steeringRotation / MAX_ROTATIONS) * 90;
+  const wheelAngle = steeringAngle / 12;
 
   const cx = 200, cy = 160, r = 120;
 
@@ -20,11 +20,11 @@ const SteeringCounter = ({ wheelAngle = 0 }) => {
   const ny = cy + (r - 8) * Math.sin(needleRad);
 
   const labels = [
-    { val: 0, angleDeg: 0   },
-    { val: 1, angleDeg: -48 },
-    { val: 1, angleDeg: 48  },
-    { val: 2, angleDeg: -90 },
-    { val: 2, angleDeg: 90  },
+    { val:  0, angleDeg:   0 },
+    { val:  1, angleDeg:  45 },
+    { val: -1, angleDeg: -45 },
+    { val:  2, angleDeg:  90 },
+    { val: -2, angleDeg: -90 },
   ];
 
   return (
@@ -72,7 +72,7 @@ const SteeringCounter = ({ wheelAngle = 0 }) => {
         {/* 바늘 원점을 배경색으로 덮어서 숨김 */}
         <circle cx={cx} cy={cy} r="65" fill={colors.box} />
 
-        {/* 각도 텍스트 */}
+        {/* 바퀴 각도 텍스트 */}
         <text x={cx} y={cy - 20} textAnchor="middle"
           fill="#FFFFFF" fontSize="40"
           fontFamily="Alata, sans-serif">
