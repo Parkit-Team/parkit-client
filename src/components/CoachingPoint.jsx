@@ -94,7 +94,7 @@ const CoachingPoint = ({
               <span className="coach__total">/</span>
               <span className="coach__total">{stepData.targetDistance}m</span>
             </div>
-            <p className="real__label">전진량</p>
+            <p className="real__label">이동 거리</p>
           </div>
         </div>
 
