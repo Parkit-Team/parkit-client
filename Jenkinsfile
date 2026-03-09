@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     // 1. 도구 설정 (Tools에서 만든 이름이 'default'여야 합니다)
-    tools {
-        dockerTool 'default' 
-    }
+    //tools {
+    //    dockerTool 'default' 
+    //}
 
     // 2. 환경 변수 설정 (중복 없이 하나로 합쳤습니다)
     environment {
