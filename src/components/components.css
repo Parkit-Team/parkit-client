@@ -173,7 +173,7 @@
 
 /* ── 공통 타이틀 ── */
 .coaching__title {
-  color: var(--color-green);
+  color: var(--color-grey);
   font-size: 20px;
   font-weight: 600;
   margin: 0 0 20px 0;
@@ -234,6 +234,12 @@
   animation: collisionPulse 1s infinite;
 }
 
+.coach__total {
+  font-size: 30px;
+  color: #d9d9d9;
+  flex-shrink: 0; 
+}
+
 @keyframes collisionPulse {
   0%, 100% { opacity: 1; border-color: var(--color-red); }
   50%       { opacity: 0.6; border-color: #ff8888; }
@@ -261,29 +267,26 @@
 .real__row {
   display: flex;
   align-items: flex-end;
-  gap: 14px;
+  gap: 12px;
 }
 
 .real__number {
-  font-size: 68px;
+  font-size: 55px;
   font-weight: 800;
   line-height: 1;
   font-variant-numeric: tabular-nums;
-}
-
-.real__total {
-  font-size: 20px;
-  color: #8899aa;
-  margin-bottom: 12px;
-  flex-shrink: 0;
-  letter-spacing: 0.5px;
+  text-align: left;
+  width: 150px;        /* 고정 너비 */
+  flex-shrink: 0;      /* 줄어들지 않게 */
 }
 
 .real__label {
-  color: #8899aa;
-  font-size: 16px;
+  color: #d9d9d9;
+  font-size: 20px;
   margin: 0;
   letter-spacing: 0.5px;
+  display: flex;
+  justify-content: center;
 }
 
 

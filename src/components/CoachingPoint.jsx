@@ -41,7 +41,7 @@ const CoachingPoint = ({
           <p className="coaching__title">Coaching Point</p>
 
           <div className="coaching__content">
-            <p className="coaching__message" style={{ color: '#D9D9D9', fontWeight: 700 }}>
+            <p className="coaching__message" style={{ color: '#D9D9D9', fontSize: '32px', fontWeight: 700 }}>
               [STEP {step}]
             </p>
             <p className="coaching__message" style={{ color: '#2ED573', fontSize: '32px' }}>
@@ -80,7 +80,8 @@ const CoachingPoint = ({
               <span className="real__number" style={{ color: isRunning ? '#FFAA00' : '#FFFFFF' }}>
                 {angleValue}°
               </span>
-              <span className="score__total">/ {stepData.targetAngle}°</span>
+              <span className="coach__total">/</span>
+              <span className="coach__total">{stepData.targetAngle}°</span>
             </div>
             <p className="real__label">핸들 각도</p>
           </div>
@@ -90,7 +91,8 @@ const CoachingPoint = ({
               <span className="real__number" style={{ color: '#FFFFFF' }}>
                 {distanceValue}m
               </span>
-              <span className="score__total">/ {stepData.targetDistance}m</span>
+              <span className="coach__total">/</span>
+              <span className="coach__total">{stepData.targetDistance}m</span>
             </div>
             <p className="real__label">전진량</p>
           </div>
