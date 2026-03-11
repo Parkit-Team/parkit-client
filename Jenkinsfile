@@ -9,7 +9,7 @@ pipeline {
     }
 
     tools {
-        jdk 'jdk17'
+        nodejs 'node20'
     }
 
     stages {
