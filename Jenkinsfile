@@ -21,13 +21,6 @@ pipeline {
             }
         }
 
-        stage('Grant Permissions') {
-            steps {
-                // gradlew 파일 실행 권한 부여
-                    sh 'chmod +x ./gradlew'
-            }
-        }
-
         // 리액트용 빌드 단계
         stage('Install & Build') {
             steps {
