@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // Define common variables
-        SERVICE_NAME = 'parkit-client'
+        SERVICE_NAME = 'client-service'
         DOCKER_IMAGE_NAME = "parkitteam/${env.JOB_BASE_NAME.replace('-CI', '')}"
         DOCKER_TAG = "build-${env.BUILD_ID}"
     }
