@@ -22,39 +22,31 @@ pipeline {
         }
 
         stage('Grant Permissions') {
-            when { changeset "parkit-client/**" }
             steps {
                 // gradlew 파일 실행 권한 부여
-                dir("${SERVICE_NAME}") {
                     sh 'chmod +x ./gradlew'
-                }
             }
         }
 
-        stage('Test & Build Jar') {
-            when { changeset "parkit-client/**" }
+        // 리액트용 빌드 단계
+        stage('Install & Build') {
             steps {
-                // 폴더 이동 후 gradle test build 실행
-                dir("${SERVICE_NAME}") {
-                    echo "Running tests and building JAR for ${SERVICE_NAME}..."
-                    sh './gradlew clean build'
-                }
+                echo "Installing dependencies and building React app..."
+                // 리액트 빌드 명령어
+                sh 'npm install'
+                sh 'npm run build'
             }
         }
 
         stage('Build Docker Image') {
-            when { changeset "parkit-client/**" }
             steps {
                 // 폴더 이동 후 Docker image build
-                dir("${SERVICE_NAME}") {
                     echo "Building Docker Image: ${DOCKER_IMAGE_NAME}:${DOCKER_TAG}"
                     sh "docker build -t ${DOCKER_IMAGE_NAME}:${DOCKER_TAG} -t ${DOCKER_IMAGE_NAME}:latest ."
-                }
             }
         }
 
         stage('Push Docker Image') {
-            when { changeset "parkit-client/**" }
             steps {
                 // Docker Hub에 이미지를 푸시
                 echo 'Pushing Docker Image to Docker Hub registry...'
