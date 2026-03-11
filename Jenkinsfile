@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // Define common variables
-        SERVICE_NAME = 'analysis-service'
+        SERVICE_NAME = 'parkit-client'
         DOCKER_IMAGE_NAME = "parkitteam/${env.JOB_BASE_NAME.replace('-CI', '')}"
         DOCKER_TAG = "build-${env.BUILD_ID}"
     }
@@ -22,7 +22,7 @@ pipeline {
         }
 
         stage('Grant Permissions') {
-            when { changeset "analysis-service/**" }
+            when { changeset "parkit-client/**" }
             steps {
                 // gradlew 파일 실행 권한 부여
                 dir("${SERVICE_NAME}") {
@@ -32,7 +32,7 @@ pipeline {
         }
 
         stage('Test & Build Jar') {
-            when { changeset "analysis-service/**" }
+            when { changeset "parkit-client/**" }
             steps {
                 // 폴더 이동 후 gradle test build 실행
                 dir("${SERVICE_NAME}") {
@@ -43,7 +43,7 @@ pipeline {
         }
 
         stage('Build Docker Image') {
-            when { changeset "analysis-service/**" }
+            when { changeset "parkit-client/**" }
             steps {
                 // 폴더 이동 후 Docker image build
                 dir("${SERVICE_NAME}") {
@@ -54,7 +54,7 @@ pipeline {
         }
 
         stage('Push Docker Image') {
-            when { changeset "analysis-service/**" }
+            when { changeset "parkit-client/**" }
             steps {
                 // Docker Hub에 이미지를 푸시
                 echo 'Pushing Docker Image to Docker Hub registry...'
