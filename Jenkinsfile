@@ -52,7 +52,6 @@ pipeline {
         }
         
         stage('Update K8s Manifests') {
-            when { changeset "socket-service/**" }
             steps {
                 echo 'Updating image tag in argocd-parkit repository...'
                 withCredentials([usernamePassword(credentialsId: 'github-credentials', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
