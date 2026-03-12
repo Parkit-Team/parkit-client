@@ -19,10 +19,10 @@ const getCoaching = (id) => coachingTips.find(tip => tip.id === id) || null;
 function App() {
   const [score, setScore] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
-  const [sensorData, setSensorData] = useState({ front: 200, back: 0, left: 100, right: 100 });
+  const [sensorData, setSensorData] = useState(null);
   const [steeringAngle, setSteeringAngle] = useState(0);
   const [straightDistance, setStraightDistance] = useState(0);
-  const [coachingId, setCoachingId] = useState(6);
+  const [coachingId, setCoachingId] = useState(5);
   const [step, setStep] = useState(1);
   const [targetAngle, setTargetAngle] = useState(0);
   const [targetDistance, setTargetDistance] = useState(0);
@@ -34,10 +34,10 @@ function App() {
   const handleStop = () => {
     if (isRunning) {
       setIsRunning(false);
-      setSensorData({ front: 200, back: 0, left: 100, right: 100 });
+      setSensorData({ front: 600, back: 600, left: 600, right: 600 });
       setStraightDistance(0);
       setSteeringAngle(0);
-      setCoachingId(6);
+      setCoachingId(5);
       setStep(1);
       setTargetAngle(0);
       setTargetDistance(0);
@@ -106,7 +106,7 @@ function App() {
                 <SteeringCounter steeringAngle={steeringAngle} />
               </div>
               <div className="sensordata-wrap card">
-                <SensorData data={sensorData} isRunning={isRunning} />
+                <SensorData data={sensorData ?? { front: 400, back: 400, left: 400, right: 400 }} isRunning={isRunning} />
               </div>
             </div>
             <div className="row--bottom">
