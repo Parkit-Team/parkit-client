@@ -33,21 +33,26 @@ function App() {
   const coaching = getCoaching(coachingId);
 
   const handleStart = async () => {
-    const res = await fetch('http://10.0.2.112:32515/api/driving-sessions/start', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userId: 'parkit-user' }),
-    });
-    const data = await res.json();
-    setSessionId(data.sessionId);
-    setScore(70);
-    setIsRunning(true);
-    setSessionTime(0);
+    try {
+      const res = await fetch('http://localhost:8083/api/driving-sessions/start', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: 'parkit-user' }),
+      });
+      const data = await res.json();
+      console.log('start 응답:', data);
+      setSessionId(data.sessionId);
+      setScore(70);
+      setIsRunning(true);
+      setSessionTime(0);
+    } catch (err) {
+      console.error('start 실패:', err);
+    }
   };
 
   const handleStop = async () => {
     if (isRunning) {
-      await fetch(`http://10.0.2.112:32515/api/driving-sessions/${sessionId}/stop`, {
+      await fetch(`http://localhost:8083/api/driving-sessions/${sessionId}/stop`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ frontendScore: score }),
@@ -78,8 +83,8 @@ function App() {
     if (!isRunning) return;
 
     const client = new Client({
-      webSocketFactory: () => new SockJS('http://10.0.2.112:31563/ws/parkit'),
-      //webSocketFactory: () => new SockJS('http://localhost:8082/ws/parkit'),
+      //webSocketFactory: () => new SockJS('http://10.0.2.112:31563/ws/parkit'),
+      webSocketFactory: () => new SockJS('http://localhost:8082/ws/parkit'),
       reconnectDelay: 5000,
       onStompError: (frame) => console.warn('STOMP 오류:', frame),
       onWebSocketError: (e) => console.warn('WebSocket 오류:', e),
