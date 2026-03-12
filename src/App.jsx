@@ -20,6 +20,7 @@ function App() {
   const [score, setScore] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [sensorData, setSensorData] = useState(null);
+  const [sessionId, setSessionId] = useState(null);
   const [steeringAngle, setSteeringAngle] = useState(0);
   const [straightDistance, setStraightDistance] = useState(0);
   const [coachingId, setCoachingId] = useState(5);
@@ -31,12 +32,29 @@ function App() {
   const coachingRef = useRef(null);
   const coaching = getCoaching(coachingId);
 
-  const handleStart = () => { setScore(70); setIsRunning(true); setSessionTime(0); };
-  const handleStop = () => {
+  const handleStart = async () => {
+    const res = await fetch('http://10.0.2.112:32515/api/driving-sessions/start', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId: 'parkit-user' }),
+    });
+    const data = await res.json();
+    setSessionId(data.sessionId);
+    setScore(70);
+    setIsRunning(true);
+    setSessionTime(0);
+  };
+
+  const handleStop = async () => {
     if (isRunning) {
+      await fetch(`http://10.0.2.112:32515/api/driving-sessions/${sessionId}/stop`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ frontendScore: score }),
+      });
       setIsRunning(false);
       setSessionTime(0);
-      setSensorData({ front: 600, back: 600, left: 600, right: 600 });
+      setSensorData(null);
       setStraightDistance(0);
       setSteeringAngle(0);
       setCoachingId(5);
@@ -60,8 +78,8 @@ function App() {
     if (!isRunning) return;
 
     const client = new Client({
-      //webSocketFactory: () => new SockJS('http://10.0.2.112:31563/ws/parkit'),
-      webSocketFactory: () => new SockJS('http://localhost:8082/ws/parkit'),
+      webSocketFactory: () => new SockJS('http://10.0.2.112:31563/ws/parkit'),
+      //webSocketFactory: () => new SockJS('http://localhost:8082/ws/parkit'),
       reconnectDelay: 5000,
       onStompError: (frame) => console.warn('STOMP 오류:', frame),
       onWebSocketError: (e) => console.warn('WebSocket 오류:', e),
