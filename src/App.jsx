@@ -60,6 +60,7 @@ function App() {
     if (!isRunning) return;
 
     const client = new Client({
+      //webSocketFactory: () => new SockJS('http://10.0.2.112:31563/ws/parkit'),
       webSocketFactory: () => new SockJS('http://localhost:8082/ws/parkit'),
       reconnectDelay: 5000,
       onStompError: (frame) => console.warn('STOMP 오류:', frame),
