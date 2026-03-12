@@ -34,7 +34,12 @@ function App() {
 
   const handleStart = async () => {
     try {
-      const res = await fetch('http://localhost:8083/api/driving-sessions/start', {
+      //인그레스
+      // const res = await fetch('http://<ingress-address>/api/driving-sessions/start', {
+      // 노드포트
+      const res = await fetch('http://10.0.2.111:32515/api/driving-sessions/start', {
+      //로컬
+      //const res = await fetch('http://localhost:8083/api/driving-sessions/start', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId: 'parkit-user' }),
@@ -52,7 +57,12 @@ function App() {
 
   const handleStop = async () => {
     if (isRunning) {
-      await fetch(`http://localhost:8083/api/driving-sessions/${sessionId}/stop`, {
+      //인그레스
+      // await fetch(`http://<ingress-address>/api/driving-sessions/${sessionId}/stop`, {
+      //노드포트
+      await fetch(`http://10.0.2.111:32515/api/driving-sessions/${sessionId}/stop`, {
+      // 로컬
+      //await fetch(`http://localhost:8083/api/driving-sessions/${sessionId}/stop`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ frontendScore: score }),
@@ -83,8 +93,12 @@ function App() {
     if (!isRunning) return;
 
     const client = new Client({
-      //webSocketFactory: () => new SockJS('http://10.0.2.112:31563/ws/parkit'),
-      webSocketFactory: () => new SockJS('http://localhost:8082/ws/parkit'),
+      //인그레스
+      //webSocketFactory: () => new SockJS('http://<ingress-address>/ws/parkit'),
+      //노드포트
+      webSocketFactory: () => new SockJS('http://10.0.2.112:30779/ws/parkit'),
+      //로컬
+      //webSocketFactory: () => new SockJS('http://localhost:8082/ws/parkit'),
       reconnectDelay: 5000,
       onStompError: (frame) => console.warn('STOMP 오류:', frame),
       onWebSocketError: (e) => console.warn('WebSocket 오류:', e),
