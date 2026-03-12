@@ -19,25 +19,60 @@ const getCoaching = (id) => coachingTips.find(tip => tip.id === id) || null;
 function App() {
   const [score, setScore] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
-  const [sensorData, setSensorData] = useState({ front: 200, back: 0, left: 100, right: 100 });
+  const [sensorData, setSensorData] = useState(null);
+  const [sessionId, setSessionId] = useState(null);
   const [steeringAngle, setSteeringAngle] = useState(0);
   const [straightDistance, setStraightDistance] = useState(0);
-  const [coachingId, setCoachingId] = useState(6);
+  const [coachingId, setCoachingId] = useState(5);
   const [step, setStep] = useState(1);
   const [targetAngle, setTargetAngle] = useState(0);
   const [targetDistance, setTargetDistance] = useState(0);
-
+  const [sessionTime, setSessionTime] = useState(0);
+  
   const coachingRef = useRef(null);
   const coaching = getCoaching(coachingId);
 
-  const handleStart = () => { setScore(70); setIsRunning(true); };
-  const handleStop = () => {
+  const handleStart = async () => {
+    try {
+      //인그레스
+      // const res = await fetch('http://<ingress-address>/api/driving-sessions/start', {
+      // 노드포트
+      const res = await fetch('http://10.0.2.111:32515/api/driving-sessions/start', {
+      //로컬
+      //const res = await fetch('http://localhost:8083/api/driving-sessions/start', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: 'parkit-user' }),
+      });
+      const data = await res.json();
+      console.log('start 응답:', data);
+      setSessionId(data.sessionId);
+      setScore(70);
+      setIsRunning(true);
+      setSessionTime(0);
+    } catch (err) {
+      console.error('start 실패:', err);
+    }
+  };
+
+  const handleStop = async () => {
     if (isRunning) {
+      //인그레스
+      // await fetch(`http://<ingress-address>/api/driving-sessions/${sessionId}/stop`, {
+      //노드포트
+      await fetch(`http://10.0.2.111:32515/api/driving-sessions/${sessionId}/stop`, {
+      // 로컬
+      //await fetch(`http://localhost:8083/api/driving-sessions/${sessionId}/stop`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ frontendScore: score }),
+      });
       setIsRunning(false);
-      setSensorData({ front: 200, back: 0, left: 100, right: 100 });
+      setSessionTime(0);
+      setSensorData(null);
       setStraightDistance(0);
       setSteeringAngle(0);
-      setCoachingId(6);
+      setCoachingId(5);
       setStep(1);
       setTargetAngle(0);
       setTargetDistance(0);
@@ -46,13 +81,24 @@ function App() {
     }
   };
 
+  useEffect(() => {
+    if (!isRunning) return;
+    const timer = setInterval(() => setSessionTime(prev => prev + 1), 1000);
+    return () => clearInterval(timer);
+  }, [isRunning]);
+
   useEffect(() => { coachingRef.current = coaching; }, [coaching]);
 
   useEffect(() => {
     if (!isRunning) return;
 
     const client = new Client({
-      webSocketFactory: () => new SockJS('http://localhost:8082/ws/parkit'),
+      //인그레스
+      //webSocketFactory: () => new SockJS('http://<ingress-address>/ws/parkit'),
+      //노드포트
+      webSocketFactory: () => new SockJS('http://10.0.2.112:30779/ws/parkit'),
+      //로컬
+      //webSocketFactory: () => new SockJS('http://localhost:8082/ws/parkit'),
       reconnectDelay: 5000,
       onStompError: (frame) => console.warn('STOMP 오류:', frame),
       onWebSocketError: (e) => console.warn('WebSocket 오류:', e),
@@ -99,14 +145,14 @@ function App() {
       <Route path="/sensor" element={<Sensor />} />
       <Route path="/*" element={
         <div className="app">
-          <Header isRunning={isRunning} sessionTime={81} />
+          <Header isRunning={isRunning} sessionTime={sessionTime} />
           <main className="main">
             <div className="row--top">
               <div className="steering-wrap card">
                 <SteeringCounter steeringAngle={steeringAngle} />
               </div>
               <div className="sensordata-wrap card">
-                <SensorData data={sensorData} isRunning={isRunning} />
+                <SensorData data={sensorData ?? { front: 400, back: 400, left: 400, right: 400 }} isRunning={isRunning} />
               </div>
             </div>
             <div className="row--bottom">
