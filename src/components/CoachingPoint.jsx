@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
 import './components.css';
-import steps from '../steps.json';
 
 const levelStyle = {
   위험: { border: '#FA3A3A', glow: 'rgba(250, 58, 58, 0.15)' },
   양호: { border: '#2ED573', glow: 'rgba(46, 213, 115, 0.15)' },
 };
+
+const getDirection = (step) => [1, 2].includes(step) ? '전진' : '후진';
 
 const CoachingPoint = ({
   message = '',
@@ -14,9 +15,14 @@ const CoachingPoint = ({
   angleValue = 0,
   distanceValue = 0,
   step = 1,
+  targetAngle = 0,
+  targetDistance = 0,
 }) => {
   const style = isRunning ? (levelStyle[level] ?? levelStyle['양호']) : null;
-  const stepData = steps.find(s => s.step === step) || steps[0];
+  const direction = getDirection(step);
+  const stepMessage = isRunning
+    ? `핸들 각도를 ${targetAngle}도로 유지한 뒤, ${targetDistance}m ${direction}하세요`
+    : '세션이\n종료되었습니다.';
 
   useEffect(() => {
     if (!message || !isRunning) return;
@@ -45,13 +51,12 @@ const CoachingPoint = ({
               [STEP {step}]
             </p>
             <p className="coaching__message" style={{ color: '#2ED573', fontSize: '32px' }}>
-              {stepData.message || (isRunning ? '데이터 수신 중...' : '세션이\n종료되었습니다.')}
+              {stepMessage}
             </p>
           </div>
 
-          {/* coaching__content 밖, coaching__body 안 */}
           <div style={{
-            marginTop: 'auto',        /* 바닥으로 밀기 */
+            marginTop: 'auto',
             padding: '18px 32px',
             border: `2px solid ${isRunning && level === '위험' ? '#FA3A3A' : 'transparent'}`,
             borderRadius: 16,
@@ -81,7 +86,7 @@ const CoachingPoint = ({
                 {angleValue}°
               </span>
               <span className="coach__total">/</span>
-              <span className="coach__total">{stepData.targetAngle}°</span>
+              <span className="coach__total">{targetAngle}°</span>
             </div>
             <p className="real__label">핸들 각도</p>
           </div>
@@ -92,7 +97,7 @@ const CoachingPoint = ({
                 {distanceValue}m
               </span>
               <span className="coach__total">/</span>
-              <span className="coach__total">{stepData.targetDistance}m</span>
+              <span className="coach__total">{targetDistance}m</span>
             </div>
             <p className="real__label">이동 거리</p>
           </div>
