@@ -7,7 +7,7 @@ function Sensor() {
 
   useEffect(() => {
     const client = new Client({
-      webSocketFactory: () => new SockJS('http://localhost:8082/ws/parkit'),
+      webSocketFactory: () => new SockJS('http://192.168.201.98:50030/socket/ws/parkit'),
       reconnectDelay: 5000,
       onConnect: () => {
         client.subscribe('/topic/coaching', (msg) => {
@@ -22,12 +22,12 @@ function Sensor() {
   const fields = [
     { key: 'step',           label: 'Step',            unit: '' },
     { key: 'coachingId',     label: 'Coaching ID',     unit: '' },
-    { key: 'steeringAngle',  label: 'Steering Angle',  unit: '°' },
-    { key: 'straight',       label: 'Straight',        unit: '' },
-    { key: 'front',          label: '전방',             unit: 'cm' },
-    { key: 'back',           label: '후방',             unit: 'cm' },
-    { key: 'left',           label: '좌측',             unit: 'cm' },
-    { key: 'right',          label: '우측',             unit: 'cm' },
+    { key: 'currentAngle',  label: 'Steering Angle',  unit: '°' },
+    { key: 'currentDistance',       label: 'Straight',        unit: '' },
+    { key: 'frontDistance',          label: '전방',             unit: 'cm' },
+    { key: 'backDistance',           label: '후방',             unit: 'cm' },
+    { key: 'leftDistance',           label: '좌측',             unit: 'cm' },
+    { key: 'rightDistance',          label: '우측',             unit: 'cm' },
     { key: 'targetAngle',    label: 'Target Angle',    unit: '°' },
     { key: 'targetDistance', label: 'Target Distance', unit: 'm' },
     { key: 'timestamp',      label: 'Timestamp',       unit: '' },
