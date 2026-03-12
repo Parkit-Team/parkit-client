@@ -116,14 +116,9 @@ function App() {
           if (data.step !== undefined) setStep(data.step);
           if (data.targetAngle !== undefined) setTargetAngle(data.targetAngle);
           if (data.targetDistance !== undefined) setTargetDistance(data.targetDistance);
-          if (distances.frontDistance !== undefined && distances.backDistance !== undefined &&
-              distances.leftDistance !== undefined && distances.rightDistance !== undefined) {
-            setSensorData({
-              front: distances.frontDistance,
-              back: distances.backDistance,
-              left: distances.leftDistance,
-              right: distances.rightDistance,
-            });
+          if (data.frontDistance !== undefined && data.backDistance !== undefined &&
+              data.leftDistance !== undefined && data.rightDistance !== undefined) {
+            setSensorData({ front: data.frontDistance, back: data.backDistance, left: data.leftDistance, right: data.rightDistance });
           }
         });
       },
