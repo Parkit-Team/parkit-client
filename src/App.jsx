@@ -39,7 +39,7 @@ function App() {
       // 노드포트
       //const res = await fetch('http://10.0.2.111:32515/api/driving-sessions/start', {
       //로컬
-      const res = await fetch('http://192.168.201.98:50030/api/driving-sessions/start', {
+      const res = await fetch('http://192.168.201.98:50030/report/api/driving-sessions/start', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId: 'parkit-user' }),
@@ -62,7 +62,7 @@ function App() {
       //노드포트
       //await fetch(`http://10.0.2.111:32515/api/driving-sessions/${sessionId}/stop`, {
       // 로컬
-      await fetch(`http://192.168.201.98:50030/api/driving-sessions/${sessionId}/stop`, {
+      await fetch(`http://192.168.201.98:50030/report/api/driving-sessions/${sessionId}/stop`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ frontendScore: score }),
