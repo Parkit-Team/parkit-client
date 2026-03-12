@@ -98,7 +98,11 @@ function App() {
       //노드포트
       //webSocketFactory: () => new SockJS('http://10.0.2.112:30779/ws/parkit'),
       //로컬
-      webSocketFactory: () => new SockJS('http://192.168.201.98:50030/socket/ws/parkit'),
+      webSocketFactory: () => {
+        const sock = new SockJS('http://192.168.201.98:50030/socket/ws/parkit');
+        sock.withCredentials = false;
+        return sock;
+      },
       reconnectDelay: 5000,
       onStompError: (frame) => console.warn('STOMP 오류:', frame),
       onWebSocketError: (e) => console.warn('WebSocket 오류:', e),
