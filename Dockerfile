@@ -8,7 +8,8 @@ RUN rm /etc/nginx/conf.d/default.conf
 COPY dist /usr/share/nginx/html
 
 # Add custom Nginx configuration to support SPA routing (handling 404 errors)
-RUN echo 'server { \
+RUN echo 'include /etc/nginx/mime.types; \
+server { \
     listen 80; \
     location / { \
         root /usr/share/nginx/html; \
