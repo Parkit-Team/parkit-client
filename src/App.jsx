@@ -26,14 +26,16 @@ function App() {
   const [step, setStep] = useState(1);
   const [targetAngle, setTargetAngle] = useState(0);
   const [targetDistance, setTargetDistance] = useState(0);
-
+  const [sessionTime, setSessionTime] = useState(0);
+  
   const coachingRef = useRef(null);
   const coaching = getCoaching(coachingId);
 
-  const handleStart = () => { setScore(70); setIsRunning(true); };
+  const handleStart = () => { setScore(70); setIsRunning(true); setSessionTime(0); };
   const handleStop = () => {
     if (isRunning) {
       setIsRunning(false);
+      setSessionTime(0);
       setSensorData({ front: 600, back: 600, left: 600, right: 600 });
       setStraightDistance(0);
       setSteeringAngle(0);
@@ -45,6 +47,12 @@ function App() {
       setScore(0);
     }
   };
+
+  useEffect(() => {
+    if (!isRunning) return;
+    const timer = setInterval(() => setSessionTime(prev => prev + 1), 1000);
+    return () => clearInterval(timer);
+  }, [isRunning]);
 
   useEffect(() => { coachingRef.current = coaching; }, [coaching]);
 
@@ -99,7 +107,7 @@ function App() {
       <Route path="/sensor" element={<Sensor />} />
       <Route path="/*" element={
         <div className="app">
-          <Header isRunning={isRunning} sessionTime={81} />
+          <Header isRunning={isRunning} sessionTime={sessionTime} />
           <main className="main">
             <div className="row--top">
               <div className="steering-wrap card">
