@@ -11,7 +11,14 @@ function Sensor() {
       reconnectDelay: 5000,
       onConnect: () => {
         client.subscribe('/topic/coaching', (msg) => {
-          setData(JSON.parse(msg.body));
+          const raw = JSON.parse(msg.body);
+          setData({
+            ...raw,
+            frontDistance: raw.distances?.frontDistance,
+            backDistance: raw.distances?.backDistance,
+            leftDistance: raw.distances?.leftDistance,
+            rightDistance: raw.distances?.rightDistance,
+          });
         });
       },
     });
@@ -20,17 +27,17 @@ function Sensor() {
   }, []);
 
   const fields = [
-    { key: 'step',           label: 'Step',            unit: '' },
-    { key: 'coachingId',     label: 'Coaching ID',     unit: '' },
-    { key: 'currentAngle',  label: 'Steering Angle',  unit: '°' },
-    { key: 'currentDistance',       label: 'Straight',        unit: '' },
-    { key: 'frontDistance',          label: '전방',             unit: 'cm' },
-    { key: 'backDistance',           label: '후방',             unit: 'cm' },
-    { key: 'leftDistance',           label: '좌측',             unit: 'cm' },
-    { key: 'rightDistance',          label: '우측',             unit: 'cm' },
-    { key: 'targetAngle',    label: 'Target Angle',    unit: '°' },
-    { key: 'targetDistance', label: 'Target Distance', unit: 'm' },
-    { key: 'timestamp',      label: 'Timestamp',       unit: '' },
+    { key: 'step',            label: 'Step',            unit: '' },
+    { key: 'coachingId',      label: 'Coaching ID',     unit: '' },
+    { key: 'currentAngle',    label: 'Steering Angle',  unit: '°' },
+    { key: 'currentDistance', label: 'Straight',        unit: 'm' },
+    { key: 'frontDistance',   label: '전방',             unit: 'cm' },
+    { key: 'backDistance',    label: '후방',             unit: 'cm' },
+    { key: 'leftDistance',    label: '좌측',             unit: 'cm' },
+    { key: 'rightDistance',   label: '우측',             unit: 'cm' },
+    { key: 'targetAngle',     label: 'Target Angle',    unit: '°' },
+    { key: 'targetDistance',  label: 'Target Distance', unit: 'm' },
+    { key: 'timestamp',       label: 'Timestamp',       unit: '' },
   ];
 
   return (
