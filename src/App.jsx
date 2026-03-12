@@ -24,6 +24,8 @@ function App() {
   const [straightDistance, setStraightDistance] = useState(0);
   const [coachingId, setCoachingId] = useState(6);
   const [step, setStep] = useState(1);
+  const [targetAngle, setTargetAngle] = useState(0);
+  const [targetDistance, setTargetDistance] = useState(0);
 
   const coachingRef = useRef(null);
   const coaching = getCoaching(coachingId);
@@ -37,6 +39,8 @@ function App() {
       setSteeringAngle(0);
       setCoachingId(6);
       setStep(1);
+      setTargetAngle(0);
+      setTargetDistance(0);
     } else {
       setScore(0);
     }
@@ -56,13 +60,15 @@ function App() {
         console.log('✅ 소켓 연결 성공!');
         client.subscribe('/topic/coaching', (msg) => {
           const data = JSON.parse(msg.body);
-          if (data.steeringAngle !== undefined) setSteeringAngle(data.steeringAngle);
+          if (data.currentAngle !== undefined) setSteeringAngle(data.currentAngle);
           if (data.coachingId !== undefined) setCoachingId(data.coachingId);
-          if (data.straight !== undefined) setStraightDistance(data.straight);
+          if (data.currentDistance !== undefined) setStraightDistance(data.currentDistance);
           if (data.step !== undefined) setStep(data.step);
-          if (data.front !== undefined && data.back !== undefined &&
-              data.left !== undefined && data.right !== undefined) {
-            setSensorData({ front: data.front, back: data.back, left: data.left, right: data.right });
+          if (data.targetAngle !== undefined) setTargetAngle(data.targetAngle);
+          if (data.targetDistance !== undefined) setTargetDistance(data.targetDistance);
+          if (data.frontDistance !== undefined && data.backDistance !== undefined &&
+              data.leftDistance !== undefined && data.rightDistance !== undefined) {
+            setSensorData({ front: data.frontDistance, back: data.backDistance, left: data.leftDistance, right: data.rightDistance });
           }
         });
       },
@@ -112,6 +118,8 @@ function App() {
                   angleValue={steeringAngle}
                   distanceValue={straightDistance}
                   step={step}
+                  targetAngle={targetAngle}
+                  targetDistance={targetDistance}
                 />
               </div>
               <div className="right-col">

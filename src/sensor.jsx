@@ -19,17 +19,19 @@ function Sensor() {
     return () => client.deactivate();
   }, []);
 
-const fields = [
-  { key: 'step',          label: 'Step',            unit: '' },
-  { key: 'coachingId',    label: 'Coaching ID',     unit: '' },
-  { key: 'steeringAngle', label: 'Steering Angle',  unit: '°' },
-  { key: 'straight',      label: 'Straight',        unit: '' },
-  { key: 'front',         label: '전방',             unit: 'cm' },
-  { key: 'back',          label: '후방',             unit: 'cm' },
-  { key: 'left',          label: '좌측',             unit: 'cm' },
-  { key: 'right',         label: '우측',             unit: 'cm' },
-  { key: 'timestamp',     label: 'Timestamp',       unit: '' },
-];
+  const fields = [
+    { key: 'step',           label: 'Step',            unit: '' },
+    { key: 'coachingId',     label: 'Coaching ID',     unit: '' },
+    { key: 'steeringAngle',  label: 'Steering Angle',  unit: '°' },
+    { key: 'straight',       label: 'Straight',        unit: '' },
+    { key: 'front',          label: '전방',             unit: 'cm' },
+    { key: 'back',           label: '후방',             unit: 'cm' },
+    { key: 'left',           label: '좌측',             unit: 'cm' },
+    { key: 'right',          label: '우측',             unit: 'cm' },
+    { key: 'targetAngle',    label: 'Target Angle',    unit: '°' },
+    { key: 'targetDistance', label: 'Target Distance', unit: 'm' },
+    { key: 'timestamp',      label: 'Timestamp',       unit: '' },
+  ];
 
   return (
     <div style={{
