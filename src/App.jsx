@@ -110,6 +110,7 @@ function App() {
         console.log('✅ 소켓 연결 성공!');
         client.subscribe('/topic/coaching', (msg) => {
           const data = JSON.parse(msg.body);
+          const distances = data.distances ?? {};
           if (data.currentAngle !== undefined) setSteeringAngle(data.currentAngle);
           if (data.coachingId !== undefined) setCoachingId(data.coachingId);
           if (data.currentDistance !== undefined) setStraightDistance(data.currentDistance);
