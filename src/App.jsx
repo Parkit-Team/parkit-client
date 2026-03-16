@@ -111,15 +111,21 @@ function App() {
         client.subscribe('/topic/coaching', (msg) => {
           const data = JSON.parse(msg.body);
           const distances = data.distances ?? {};
+const { frontDistance, backDistance, leftDistance, rightDistance } = distances;
           if (data.currentAngle !== undefined) setSteeringAngle(data.currentAngle);
           if (data.coachingId !== undefined) setCoachingId(data.coachingId);
           if (data.currentDistance !== undefined) setStraightDistance(data.currentDistance);
           if (data.step !== undefined) setStep(data.step);
           if (data.targetAngle !== undefined) setTargetAngle(data.targetAngle);
           if (data.targetDistance !== undefined) setTargetDistance(data.targetDistance);
-          if (data.frontDistance !== undefined && data.backDistance !== undefined &&
-              data.leftDistance !== undefined && data.rightDistance !== undefined) {
-            setSensorData({ front: data.frontDistance, back: data.backDistance, left: data.leftDistance, right: data.rightDistance });
+          if (frontDistance !== undefined && backDistance !== undefined &&
+              leftDistance !== undefined && rightDistance !== undefined) {
+            setSensorData({
+              front: frontDistance,
+              back: backDistance,
+              left: leftDistance,
+              right: rightDistance,
+            });
           }
         });
       },
