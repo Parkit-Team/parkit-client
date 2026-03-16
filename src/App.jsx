@@ -111,7 +111,10 @@ function App() {
         client.subscribe('/topic/coaching', (msg) => {
           const data = JSON.parse(msg.body);
           const distances = data.distances ?? {};
-const { frontDistance, backDistance, leftDistance, rightDistance } = distances;
+          const { frontDistance, backDistance, leftDistance, rightDistance } = distances;
+          
+          console.log('🔥 콜백 실행됨', { frontDistance, backDistance, leftDistance, rightDistance }); // ← 여기
+          
           if (data.currentAngle !== undefined) setSteeringAngle(data.currentAngle);
           if (data.coachingId !== undefined) setCoachingId(data.coachingId);
           if (data.currentDistance !== undefined) setStraightDistance(data.currentDistance);
