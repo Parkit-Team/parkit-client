@@ -3,7 +3,6 @@ import Header from './components/Header';
 import SteeringCounter from './components/SteeringCounter';
 import CoachingPoint from './components/CoachingPoint';
 import coachingTips from './coachingTips.json';
-import stepsData from './steps.json';  // ✅ 추가
 
 import React, { useState, useEffect, useRef } from 'react';
 import SensorData from './components/SensorData';
@@ -25,22 +24,21 @@ function App() {
   const [steeringAngle, setSteeringAngle] = useState(0);
   const [straightDistance, setStraightDistance] = useState(0);
   const [coachingId, setCoachingId] = useState(5);
-  const [step, setStep] = useState(1);         // ✅ 유지 (steps.json 인덱스로 사용)
+  const [step, setStep] = useState(1);
+  const [targetAngle, setTargetAngle] = useState(0);
+  const [targetDistance, setTargetDistance] = useState(0);
   const [sessionTime, setSessionTime] = useState(0);
-
-  // ✅ step에 따라 steps.json에서 target 파생 (소켓 X)
-  const currentStepData = stepsData.find(s => s.step === step) ?? stepsData[0];
-  const targetAngle = currentStepData.targetAngle;
-  const targetDistance = currentStepData.targetDistance;
-
-  // ✅ 거리 단위 변환: /100 후 반올림 (cm → m)
-  const displayDistance = Math.round(straightDistance / 100);
-
+  
   const coachingRef = useRef(null);
   const coaching = getCoaching(coachingId);
 
   const handleStart = async () => {
     try {
+      //인그레스
+      // const res = await fetch('http://<ingress-address>/api/driving-sessions/start', {
+      // 노드포트
+      //const res = await fetch('http://10.0.2.111:32515/api/driving-sessions/start', {
+      //로컬
       const res = await fetch('http://192.168.201.98:50030/report/api/driving-sessions/start', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -59,6 +57,11 @@ function App() {
 
   const handleStop = async () => {
     if (isRunning) {
+      //인그레스
+      // await fetch(`http://<ingress-address>/api/driving-sessions/${sessionId}/stop`, {
+      //노드포트
+      //await fetch(`http://10.0.2.111:32515/api/driving-sessions/${sessionId}/stop`, {
+      // 로컬
       await fetch(`http://192.168.201.98:50030/report/api/driving-sessions/${sessionId}/stop`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -71,6 +74,8 @@ function App() {
       setSteeringAngle(0);
       setCoachingId(5);
       setStep(1);
+      setTargetAngle(0);
+      setTargetDistance(0);
     } else {
       setScore(0);
     }
@@ -88,6 +93,11 @@ function App() {
     if (!isRunning) return;
 
     const client = new Client({
+      //인그레스
+      //webSocketFactory: () => new SockJS('http://<ingress-address>/ws/parkit'),
+      //노드포트
+      //webSocketFactory: () => new SockJS('http://10.0.2.112:30779/ws/parkit'),
+      //로컬
       webSocketFactory: () => {
         const sock = new SockJS('http://192.168.201.98:50030/socket/ws/parkit');
         sock.withCredentials = false;
@@ -102,12 +112,13 @@ function App() {
           const data = JSON.parse(msg.body);
           const distances = data.distances ?? {};
           const { frontDistance, backDistance, leftDistance, rightDistance } = distances;
-
+          
           if (data.currentAngle !== undefined) setSteeringAngle(data.currentAngle);
           if (data.coachingId !== undefined) setCoachingId(data.coachingId);
           if (data.currentDistance !== undefined) setStraightDistance(data.currentDistance);
-          // ✅ step / targetAngle / targetDistance는 소켓에서 읽지 않음
-
+          if (data.step !== undefined) setStep(data.step);
+          if (data.targetAngle !== undefined) setTargetAngle(data.targetAngle);
+          if (data.targetDistance !== undefined) setTargetDistance(data.targetDistance);
           if (frontDistance !== undefined && backDistance !== undefined &&
               leftDistance !== undefined && rightDistance !== undefined) {
             setSensorData({
@@ -124,25 +135,6 @@ function App() {
     client.activate();
     return () => client.deactivate();
   }, [isRunning]);
-
-  // ✅ 목표 달성 시 자동 step 증가
-  useEffect(() => {
-    if (!isRunning) return;
-
-    const angleMatch = Math.round(steeringAngle) === targetAngle;
-    const distanceMatch = displayDistance >= targetDistance;
-
-    if (angleMatch && distanceMatch) {
-      const nextStep = step + 1;
-      const hasNext = stepsData.some(s => s.step === nextStep);
-      if (hasNext) {
-        console.log(`✅ Step ${step} 완료 → Step ${nextStep}으로 이동`);
-        setStep(nextStep);
-      } else {
-        console.log('🎉 모든 스텝 완료!');
-      }
-    }
-  }, [steeringAngle, displayDistance]);  // angle·distance 바뀔 때마다 체크
 
   useEffect(() => {
     let scoreTimer;
@@ -182,7 +174,7 @@ function App() {
                   level={coaching?.level}
                   isRunning={isRunning}
                   angleValue={steeringAngle}
-                  distanceValue={displayDistance}
+                  distanceValue={straightDistance}
                   step={step}
                   targetAngle={targetAngle}
                   targetDistance={targetDistance}
