@@ -6,17 +6,17 @@
   },
   {
     "step": 2,
-    "targetAngle": -360,
-    "targetDistance": 5
+    "targetAngle": -536,
+    "targetDistance": 27
   },
   {
     "step": 3,
-    "targetAngle": 180,
-    "targetDistance": 3
+    "targetAngle": 536,
+    "targetDistance": 22
   },
   {
     "step": 4,
-    "targetAngle": 360,
-    "targetDistance": 3
+    "targetAngle": 0,
+    "targetDistance": 22
   }
 ]
