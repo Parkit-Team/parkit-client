@@ -182,7 +182,7 @@ function App() {
                   level={coaching?.level}
                   isRunning={isRunning}
                   angleValue={steeringAngle}
-                  distanceValue={displayDistance}  {/* ✅ 변환된 값 전달 */}
+                  distanceValue={displayDistance}
                   step={step}
                   targetAngle={targetAngle}
                   targetDistance={targetDistance}
