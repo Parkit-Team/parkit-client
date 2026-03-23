@@ -1,25 +1,21 @@
 [
   {
     "step": 1,
-    "message": "핸들 각도를 0도로 유지한 뒤, 앞으로 10m 전진하세요",
     "targetAngle": 0,
-    "targetDistance": 10
+    "targetDistance": 24
   },
   {
     "step": 2,
-    "message": "핸들 각도를 -360도로 돌린 뒤, 앞으로 5m 전진하세요",
     "targetAngle": -360,
     "targetDistance": 5
   },
   {
     "step": 3,
-    "message": "핸들 각도를 180도로 돌린 뒤, 뒤로 3m 후진하세요",
     "targetAngle": 180,
     "targetDistance": 3
   },
   {
     "step": 4,
-    "message": "핸들 각도를 360도로 돌린 뒤, 뒤로 3m 후진하며 핸들을 서서히 푸세요",
     "targetAngle": 360,
     "targetDistance": 3
   }
